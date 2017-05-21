@@ -16,10 +16,9 @@ module.exports = function(app, dbHandle){
 			}).
 			then(function(result){
 				res.send(result);
-				dbHandle.close();
 			}).
 			catch(function (err) {
-                   console.log("Promise Rejected due to error" + err);
+                   console.log("Promise Rejected due to error " + err);
             });
 	});
 
@@ -40,7 +39,6 @@ module.exports = function(app, dbHandle){
 			}).
 			then(function(docs){
 				res.send(docs);
-				dbHandle.close();
 			}).
 			catch(function (err) {
                    console.log("Promise Rejected due to error " + err);

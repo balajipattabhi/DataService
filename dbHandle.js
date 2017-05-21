@@ -20,10 +20,14 @@ module.exports ={
 				return new Promise(function (resolve, reject) {
 				  var collection = db.collection(collectionName);
 				  collection.insert(document, function(err, result) {
-				  		if(err)
+				  		db.close();
+				  		if(err){
 				  			reject(err);
+				  		}
 				  		else
+				  		{
 				  			resolve(result);
+				  		}
 				  });
 			 });
 	},
@@ -35,17 +39,13 @@ module.exports ={
 				findcontent={};
 			}
 			collection.find(findcontent).toArray(function(err, docs) {
+				db.close();
 				if(err)
 					reject(err);
 				else
 	    			resolve(docs);  
 	    	});
 	    });
-	},
-
-	close:function(){
-				MongoClient.close();
 	}
-
 };
 
