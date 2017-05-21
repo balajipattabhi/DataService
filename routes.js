@@ -16,22 +16,21 @@ module.exports = function(app, dbHandle){
 			}).
 			then(function(result){
 				res.send(result);
-				//dbHandle.close(db);
+				dbHandle.close();
 			}).
-			catch(err => {
-        		res.send(err)
-      		});
+			catch(function (err) {
+                   console.log("Promise Rejected due to error" + err);
+            });
 	});
 
 	app.post('/read', function (req, res) {
 		var collection = req.body.collection;
 		var dbName = req.body.dbname;
 		var findcontent = req.body.findcontent;
-
-		if(findcontent=='undefined'){
+		if(typeof(findcontent)=='undefined'){
 				findcontent={};
 		}
-		else{
+		else {
 				findcontent=JSON.parse(findcontent);
 		}
 
@@ -41,11 +40,11 @@ module.exports = function(app, dbHandle){
 			}).
 			then(function(docs){
 				res.send(docs);
-				//dbHandle.close(db);
+				dbHandle.close();
 			}).
-			catch(err => {
-        		res.send(err)
-      		});
+			catch(function (err) {
+                   console.log("Promise Rejected due to error " + err);
+            });
 	});
 
 }

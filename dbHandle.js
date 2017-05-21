@@ -16,10 +16,10 @@ module.exports ={
 			});
 	},
 
-	insertDocument: function (db, collectionName, document, callback){
+	insertDocument: function (db, collectionName, document){
 				return new Promise(function (resolve, reject) {
 				  var collection = db.collection(collectionName);
-				  collection.insert(document, {w:1}, function(err, result) {
+				  collection.insert(document, function(err, result) {
 				  		if(err)
 				  			reject(err);
 				  		else
@@ -31,7 +31,7 @@ module.exports ={
 	find: function(db, collectionName, findcontent){
 		return new Promise(function (resolve, reject) {
 			var collection = db.collection(collectionName);				
-			if(findcontent=='undefined'){
+			if(typeof(findcontent)=='undefined'){
 				findcontent={};
 			}
 			collection.find(findcontent).toArray(function(err, docs) {
@@ -43,8 +43,8 @@ module.exports ={
 	    });
 	},
 
-	close:function(db){
-				db.close();
+	close:function(){
+				MongoClient.close();
 	}
 
 };
