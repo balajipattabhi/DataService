@@ -46,6 +46,24 @@ module.exports ={
 	    			resolve(docs);  
 	    	});
 	    });
+	},
+
+
+	delete: function(db, collectionName, deleteContent){
+		return new Promise(function (resolve, reject) {
+			var collection = db.collection(collectionName);				
+			if(typeof(deleteContent)=='undefined'){
+				deleteContent={};
+			}
+			collection.deleteMany(deleteContent, function(err, result) {
+				db.close();
+				if(err)
+					reject(err);
+				else
+	    			resolve(result);  
+	    	});
+	    });
 	}
+
 };
 

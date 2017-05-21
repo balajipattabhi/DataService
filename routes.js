@@ -18,6 +18,7 @@ module.exports = function(app, dbHandle){
 				res.send(result);
 			}).
 			catch(function (err) {
+				   res.send(err);
                    console.log("Promise Rejected due to error " + err);
             });
 	});
@@ -41,6 +42,32 @@ module.exports = function(app, dbHandle){
 				res.send(docs);
 			}).
 			catch(function (err) {
+				   res.send(err);
+                   console.log("Promise Rejected due to error " + err);
+            });
+	});
+
+
+	app.post('/delete', function (req, res) {
+		var collection = req.body.collection;
+		var dbName = req.body.dbname;
+		var deletecontent = req.body.deletecontent;
+		if(typeof(deletecontent)=='undefined'){
+				deletecontent={};
+		}
+		else {
+				deletecontent=JSON.parse(deletecontent);
+		}
+
+		dbHandle.connect(dbName).
+			then(function(db){
+				return dbHandle.delete(db, collection, deletecontent);
+			}).
+			then(function(result){
+				res.send(result);
+			}).
+			catch(function (err) {
+				   res.send(err);
                    console.log("Promise Rejected due to error " + err);
             });
 	});
