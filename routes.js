@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 module.exports = function(app, dbHandle){
 	app.use(bodyParser.urlencoded({ extended: false }));
 
-	app.post('/create', function (req, res) {	
+	app.post('/documents', function (req, res) {	
 		var collection = req.body.collection;
 		var dbName = req.body.dbname;
 		var document = JSON.parse(req.body.document);
@@ -23,10 +23,11 @@ module.exports = function(app, dbHandle){
             });
 	});
 
-	app.post('/read', function (req, res) {
-		var collection = req.body.collection;
-		var dbName = req.body.dbname;
-		var findcontent = req.body.findcontent;
+
+	app.get('/documents', function (req, res) {
+		var collection = req.query.collection;
+		var dbName = req.query.dbname;
+		var findcontent = req.query.findcontent;
 		if(typeof(findcontent)=='undefined'){
 				findcontent={};
 		}
@@ -48,7 +49,9 @@ module.exports = function(app, dbHandle){
 	});
 
 
-	app.post('/delete', function (req, res) {
+
+
+	app.delete('/documents', function (req, res) {
 		var collection = req.body.collection;
 		var dbName = req.body.dbname;
 		var deletecontent = req.body.deletecontent;
